@@ -1,5 +1,3 @@
--- MiniShop - cấu trúc 5 bảng và dữ liệu mẫu
--- Cách nạp: phpMyAdmin > Import > chọn tệp này
 
 CREATE DATABASE IF NOT EXISTS minishop
     CHARACTER SET utf8mb4
@@ -28,7 +26,6 @@ CREATE TABLE products (
     price       DECIMAL(12,0) NOT NULL,
     image       VARCHAR(255) NOT NULL DEFAULT 'no-image.jpg',
     PRIMARY KEY (id),
-    -- Khóa ngoại: không xóa được danh mục khi còn sản phẩm thuộc danh mục đó
     CONSTRAINT fk_products_category
         FOREIGN KEY (category_id) REFERENCES categories (id)
         ON DELETE RESTRICT
@@ -55,8 +52,6 @@ CREATE TABLE orders (
         FOREIGN KEY (user_id) REFERENCES users (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- order_items lưu lại tên và giá tại thời điểm mua,
--- để đơn cũ không đổi khi sản phẩm sau này đổi giá hoặc đổi tên.
 CREATE TABLE order_items (
     id           INT UNSIGNED NOT NULL AUTO_INCREMENT,
     order_id     INT UNSIGNED NOT NULL,
